@@ -5,7 +5,7 @@ xlim_max = 8;
 ylim_max= 8;
 
 % Külön branchen nézzük
-
+% Változtatunk
 % itt elkezdj�k a k�z�ps� s�v megad�s�t:
 
 Pj = [0,-0.5; 3 0; 6 3]
