@@ -68,7 +68,7 @@ plot(t_new,-a/b*t_new+c/b,'g')
   cp_int_vizsg = [ (sign(a*cp(:,1)+b* cp(:,2)-c) ~= sign(a*cp(:,3)+b* cp(:,4)-c)) + (sign(a*cp(:,3)+b* cp(:,4)-c) ~= sign(a*cp(:,5)+b* cp(:,6)-c))]
   
   
-  int_points = zeros(number_of_segment,2);
+  intersection_points = ones(number_of_segment,2)*NaN;
   
   for i=1:number_of_segment
       if(cp_int_vizsg(i)>0)
@@ -98,10 +98,14 @@ plot(t_new,-a/b*t_new+c/b,'g')
                   plot(x,y,'ro')
                   angle_intersection = rad2deg(atan2(y-poz(2), x-poz(1)));
                   if((angle_intersection- angle_vel) < 0.0002)
-                      int_points(i,:) = [x, y];
+                      intersection_points(i,:) = [x, y];
                   end
              
           end
       end
   end
+  
+  good_segment = find(~isnan(intersection_points(:,1)))
+  segment_int_
+ 
   

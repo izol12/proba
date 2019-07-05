@@ -68,7 +68,7 @@ plot(t_new,-a/b*t_new+c/b,'g')
   cp_int_vizsg = [ (sign(a*cp(:,1)+b* cp(:,2)-c) ~= sign(a*cp(:,3)+b* cp(:,4)-c)) + (sign(a*cp(:,3)+b* cp(:,4)-c) ~= sign(a*cp(:,5)+b* cp(:,6)-c))]
   
   
-  int_points = zeros(number_of_segment,2);
+  intersection_points = ones(number_of_segment,2)*NaN;
   
   for i=1:number_of_segment
       if(cp_int_vizsg(i)>0)
@@ -98,10 +98,17 @@ plot(t_new,-a/b*t_new+c/b,'g')
                   plot(x,y,'ro')
                   angle_intersection = rad2deg(atan2(y-poz(2), x-poz(1)));
                   if((angle_intersection- angle_vel) < 0.0002)
-                      int_points(i,:) = [x, y];
+                      intersection_points(i,:) = [x, y];
                   end
              
           end
       end
   end
+  % Ahol nin nan, azok a jo metszespontok
+  good_segment = find(~isnan(intersection_points(:,1)))
+  
+  % kul. szegmenseknel milyen tavra van a metsz pont a poz-tol
+  segment_intersection_distance = sqrt((intersection_points(good_segment,1)-poz(1)).^2 +(intersection_points(good_segment,2)-poz(2)).^2)
+  % kivalasztjuk a metszesek kozul azt, amelyik a legkozelebb van
+  intersection_points(good_segment(find(segment_intersection_distance==min(segment_intersection_distance))),:)
   
